@@ -1,0 +1,22 @@
+
+# pod file for nginx with persistent storage
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  volumes:
+  - name: nginx-storage
+    # emptyDir: {}  # Using emptyDir for temporary storage
+    persistentVolumeClaim:
+      claimName: nginx-pvc
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - mountPath: /usr/share/nginx/html
+      name: nginx-storage

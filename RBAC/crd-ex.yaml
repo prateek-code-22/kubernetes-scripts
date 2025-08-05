@@ -1,0 +1,9 @@
+kind: DevOpsBatch
+apiVersion: tws.com/v1
+metadata:
+  name: devops
+spec:
+  name: devops course
+  duration: 2 month
+  platform: twss.com
+  mode: online

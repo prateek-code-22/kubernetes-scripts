@@ -1,0 +1,30 @@
+# install kuberentes-dashboard from github:
+# step1: kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+# step2: create admin user from below manifest file.
+# step3: apply the cluster admin yaml
+# step4: generate token to access dashboard: kubectl -n kubernetes-dashboard create token admin-user
+# step5: expose kubectl proxy api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+# example: http://43.204.143.14:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+
+
+kind: ServiceAccount
+apiVersion: v1
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin-user-binding
+  namespace: kubernetes-dashboard
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin

@@ -1,0 +1,30 @@
+# there are 2 deployment(nginx, app) with 2 services (nginx-service and app-service). when we put /nginx it should route to nginx homepage
+# and when / default route to app homepage.
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-Ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - http:
+      paths:
+      - pathType: Prefix
+        path: /nginx
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: app-service
+            port:
+              number: 8080
+
+
+

@@ -1,0 +1,14 @@
+# To create the pod using the YAML file  
+# Kubectl create -f pod.yaml - to create the pod
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: my-pod
+  labels:
+    env: test
+
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:latest

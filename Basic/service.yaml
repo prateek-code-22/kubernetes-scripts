@@ -1,0 +1,17 @@
+# simple service definition for nginx deployment
+#  Nodeport type service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx-deployed
+  ports:
+    - protocol: TCP
+      port: 80
+      nodePort: 30080
+      targetPort: 80
+  type: NodePort
+
